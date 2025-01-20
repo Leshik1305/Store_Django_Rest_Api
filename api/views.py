@@ -13,6 +13,10 @@ from api.serializers import CustomUserSerializer, StorehouseSerializer, ProductS
 class CustomerUserModelViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+    http_method_names = ['post', 'get']
+    authentication_classes = []
+    permission_classes = []
+
 
 class StorehouseModelViewSet(viewsets.ModelViewSet):
     queryset = Storehouse.objects.all()
@@ -20,7 +24,6 @@ class StorehouseModelViewSet(viewsets.ModelViewSet):
     permissions_classes = [
         permissions.IsAuthenticated
     ]
-
 
 class ProductModelViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()

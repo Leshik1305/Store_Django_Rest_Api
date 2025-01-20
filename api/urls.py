@@ -4,10 +4,10 @@ from api.views import CustomerUserModelViewSet, StorehouseModelViewSet, ProductM
 
 router = DefaultRouter()
 router.register('users', CustomerUserModelViewSet)
-router.register('storehouse', StorehouseModelViewSet)
-router.register('product', ProductModelViewSet)
-router.register('supply', SupplyModelViewSet)
-router.register('consumption', ConsumptionModelViewSet)
+router.register('storehouses', StorehouseModelViewSet)
+router.register('products', ProductModelViewSet)
+router.register('supplies', SupplyModelViewSet)
+router.register('consumptions', ConsumptionModelViewSet)
 
 urlpatterns = [
 
