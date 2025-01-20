@@ -43,12 +43,12 @@ class ProductSerializer(serializers.ModelSerializer):
 class SupplySerializer(serializers.ModelSerializer):
     class Meta:
         model = Supply
-        fields = ("id", "supplier", "product", "quantity")
+        fields = ("id", "product", "quantity")
         extra_kwargs = {"id": {"read_only": True}}
 
 
 class ConsumptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Consumption
-        fields = "__all__"
+        fields = ("id", "product", "quantity")
         extra_kwargs = {"id": {"read_only": True}}

@@ -44,7 +44,15 @@ class SupplyModelViewSet(viewsets.ModelViewSet):
             raise ValidationError (
                 "Only suppliers can supply products."
             )
-        serializer.save(supplier=user)
+
+        product = serializer.validated_data["product"]
+        quantity = serializer.validated_data["quantity"]
+
+        product.quantity += quantity
+        product.save()
+
+        serializer.save(supplier = user)
+
 
 class ConsumptionModelViewSet(viewsets.ModelViewSet):
 
@@ -60,18 +68,12 @@ class ConsumptionModelViewSet(viewsets.ModelViewSet):
             raise ValidationError (
                 "Only consumers can consume products."
             )
-        product = serializer.validated_data[
-            "product"
-        ]
+        product = serializer.validated_data["product"]
+        quantity = serializer.validated_data["quantity"]
 
-        if serializer.validated_data[
-            "quantity"
-        ]:
-            raise FieldError (
-                "Not enough product in stock."
-            )
-        serializer.save(consumer=user)
-        product.quantity -= (
-            serializer.validated_data
-        )
+        if product.quantity < quantity:
+            raise ValidationError ("Not enough product in stock.")
+        product.quantity -= quantity
         product.save()
+        serializer.save(consumer=user)
+
