@@ -46,81 +46,97 @@ GET /users/ - cписок всех пользователей
 Аунтификация
 http://127.0.0.1:8000/api-auth/login/?next=/
 Склады
-GET /storehouse/ — список складов.
-POST /storehouse/ — создание нового склада.
+GET /storehouses/ — список складов.
+POST /storehouses/ — создание нового склада.
 Товары
-GET /product/ — список товаров.
-POST /product/ — добавление нового товара.
+GET /products/ — список товаров.
+POST /products/ — добавление нового товара.
 Поставки
-GET /supply/ — список поставок.
-POST /supply/ — добавление товара на склад (доступно только для поставщиков).
+GET /supplies/ — список поставок.
+POST /supplies/ — добавление товара на склад (доступно только для поставщиков).
 Потребление
-GET /consumption/
-POST /consumption/ — получение товара со склада (доступно только для потребителей и при достаточном количестве товаров).
-Настройки JWT
-В файле settings.py добавлены настройки для JWT-аутентификации. Срок действия токена доступа составляет 15 минут, токена обновления — 1 день.
-
-Пример настроек:
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-}
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-}
-Примеры запросов
-Регистрация
-POST /api/register/
+GET /consumptions/
+POST /consumptions/ — получение товара со склада (доступно только для потребителей и при достаточном количестве товаров).
+    
+**Примеры запросов**
+**Получение токена**
+POST http://127.0.0.1:8000/api-token-auth/
 Content-Type: application/json
-
+{
+    "username": "test",
+    "password": 12345,
+}
+ответ вставляете в Headers Authorization в фотмате "Token ${}" в следующих запросах
+**Создание нового поставщика**
+POST /api/users/
+Content-Type: application/json
 {
     "username": "supplier1",
-    "password": "password123",
-    "user_type": "supplier"
+    "role": "supplier",
+    "email": "1234@email.ru"
+    "password": "12345"
 }
-Получение токена
-POST /api/token/
+**Создание нового потребителя**
+POST /api/users/
 Content-Type: application/json
-
 {
-    "username": "supplier1",
-    "password": "password123"
+    "username": "consumer1",
+    "role": "consumer",
+    "email": "consumer1234@email.ru"
+    "password": "12345"
 }
-Ответ:
+**Просмотр всех зарегестрированных пользователей**
+GET /api/users/
 
-{
-    "refresh": "eyJ0eXAiOiJKV1QiLCJhbGci...",
-    "access": "eyJ0eXAiOiJKV1QiLCJhbGci..."
-}
-Создание склада
-POST /api/warehouses/
-Authorization: Bearer <access_token>
+**Создание склада**
+POST /api/storehouses/
 Content-Type: application/json
-
 {
-    "name": "Склад №1",
-    "address": "ул. Примерная, 1"
+    "name": "sklad",
 }
-Поставка товара
+
+**Просмотр списка складов**
+GET /api/storehouses/
+
+**Создание товара**
+POST /api/products/
+Content-Type: application/json
+{
+    "name": "potatoes",
+    "quantity": 50,
+    "storehouse": 1
+    
+}
+
+**Просмотр списка складов**
+GET /api/products/
+
+**Поставка товара**
 POST /api/supplies/
-Authorization: Bearer <access_token>
 Content-Type: application/json
 
 {
     "product": 1,
     "quantity": 100
 }
-Потребление товара
+
+**Просмотр списка поставок**
+GET /api/supplies/
+
+**Потребление товара**
+нужно будет получить новый токен для потребителя:
+POST http://127.0.0.1:8000/api-token-auth/
+Content-Type: application/json
+{
+    "username": "test2",
+    "password": 12345,
+}
 POST /api/consumptions/
-Authorization: Bearer <access_token>
 Content-Type: application/json
 
 {
     "product": 1,
     "quantity": 10
 }
-
+**Просмотр списка потреблений**
+GET /api/consumptions/
