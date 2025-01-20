@@ -15,9 +15,9 @@
 **Клонируйте репозиторий на ваш локальный компьютер:**
 
 git clone https://github.com/username/repository.git
+
 cd repository
 **Создайте и активируйте виртуальное окружение:**
-
 python -m venv venv
 source venv/bin/activate  # для Linux/macOS
 venv\Scripts\activate  # для Windows
