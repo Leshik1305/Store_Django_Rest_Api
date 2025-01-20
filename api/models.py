@@ -4,11 +4,14 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
+
     ROLE_CHOICES = [
         ("supplier", "Supplier"),
         ("consumer", "Consumer"),
     ]
     role = models.CharField(max_length=15, choices=ROLE_CHOICES)
+
+
 
 class Storehouse(models.Model):
     name = models.CharField(max_length=128)

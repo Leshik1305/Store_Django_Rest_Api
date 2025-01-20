@@ -1,5 +1,4 @@
-from django.core.exceptions import FieldError
-from django.shortcuts import render
+
 from rest_framework import viewsets, permissions
 from rest_framework.exceptions import ValidationError
 
@@ -76,4 +75,3 @@ class ConsumptionModelViewSet(viewsets.ModelViewSet):
         product.quantity -= quantity
         product.save()
         serializer.save(consumer=user)
-
