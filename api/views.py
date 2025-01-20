@@ -78,4 +78,3 @@ class ConsumptionModelViewSet(viewsets.ModelViewSet):
         product.quantity -= quantity
         product.save()
         serializer.save(consumer=user)
-
