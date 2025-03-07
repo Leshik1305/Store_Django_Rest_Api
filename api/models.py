@@ -10,7 +10,7 @@ class CustomUser(AbstractUser):  #Пользовательская модель,
         ("supplier", "Supplier"), # Значение для поставщика
         ("consumer", "Consumer"), # Значение для потребителя
     ]
-    role = models.CharField(max_length=15, choices=ROLE_CHOICES)  # Поле для хранения типа пользователя
+    role = models.CharField(max_length=15,  choices=ROLE_CHOICES)  # Поле для хранения типа пользователя
 
 
 
