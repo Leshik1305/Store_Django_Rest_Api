@@ -8,7 +8,7 @@ class CustomUserSerializer(serializers.ModelSerializer):  # Определяем
     class Meta:  # Внутренний класс Meta используется для указания метаинформации
         model = CustomUser  # Указываем модель, для которой создаем сериализатор 
         fields = ['username','role', 'email', 'password']  # Перечисляем поля, которые будут сериализоваться
-        extra_kwargs = {'password': {'write_only': True}}  # Чтобы пароль не возвращался в ответе
+        extra_kwargs = {'password': {'write_only': True}, 'role': {'default' : 'consumer' }}  # Чтобы пароль не возвращался в ответе
 
     def create(self, validated_data):  # Функция создания нового пользователя
         user = CustomUser.objects.create_user(**validated_data)
