@@ -82,23 +82,10 @@ POST /consumptions/ — получение товара со склада (до�
     
 **Примеры запросов**
 
-**Получение токена**
-
-POST http://127.0.0.1:8000/api-token-auth/
-
-Content-Type: application/json
-
-{
-
-    "username": "test",
-    "password": 12345,
-}
-
-ответ вставляете в Headers Authorization в фотмате "Token ${}" в следующих запросах
 
 **Создание нового поставщика**
 
-POST /api/users/
+POST /users/
 
 Content-Type: application/json
 
@@ -112,7 +99,7 @@ Content-Type: application/json
 
 **Создание нового потребителя**
 
-POST /api/users/
+POST /users/
 
 Content-Type: application/json
 
@@ -126,11 +113,15 @@ Content-Type: application/json
 
 **Просмотр всех зарегестрированных пользователей**
 
-GET /api/users/
+GET  /users/
+
+**После создания юзера нужно авторизоваться, чтобы были доступны все функции**
+
+Вправом верхнем углу кнопка "Log in" или по ссылке http://127.0.0.1:8000/api-auth/login/?next=/ и вводим Username и пароль.
 
 **Создание склада**
 
-POST /api/storehouses/
+POST /storehouses/
 
 Content-Type: application/json
 
@@ -141,11 +132,11 @@ Content-Type: application/json
 
 **Просмотр списка складов**
 
-GET /api/storehouses/
+GET /storehouses/
 
 **Создание товара**
 
-POST /api/products/
+POST /products/
 
 Content-Type: application/json
 
@@ -159,11 +150,11 @@ Content-Type: application/json
 
 **Просмотр списка складов**
 
-GET /api/products/
+GET /products/
 
 **Поставка товара**
 
-POST /api/supplies/
+POST /supplies/
 
 Content-Type: application/json
 
@@ -175,23 +166,10 @@ Content-Type: application/json
 
 **Просмотр списка поставок**
 
-GET /api/supplies/
+GET /supplies/
 
-**Потребление товара**
 
-нужно будет получить новый токен для потребителя:
-
-POST http://127.0.0.1:8000/api-token-auth/
-
-Content-Type: application/json
-
-{
-
-    "username": "test2",
-    "password": 12345,
-}
-
-POST /api/consumptions/
+POST /consumptions/
 
 Content-Type: application/json
 
@@ -203,4 +181,4 @@ Content-Type: application/json
 
 **Просмотр списка потреблений**
 
-GET /api/consumptions/
+GET /consumptions/
